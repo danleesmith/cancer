@@ -1,6 +1,10 @@
 const DAY_S: f64 = 86400.0;
 
-pub fn is_julian_date(year: i32, month: u32, day: u32) -> bool {
+pub fn is_julian_date(
+	year: i32, 
+	month: u32, 
+	day: u32
+) -> bool {
 	if year > 1582 { return false };
 	if year < 1582 { return true };
 	if month > 10 { return false };
@@ -9,7 +13,14 @@ pub fn is_julian_date(year: i32, month: u32, day: u32) -> bool {
 	return true
 }
 
-pub fn julian_day(mut year: i32, mut month: u32, day: u32, hour: u32, minute: u32, second: u32) -> f64 {
+pub fn get_julian_day(
+	mut year: i32, 
+	mut month: u32, 
+	day: u32, 
+	hour: u32, 
+	minute: u32, 
+	second: u32
+) -> f64 {
 
 	if month <= 2 {
 		year -= 1;
@@ -24,9 +35,7 @@ pub fn julian_day(mut year: i32, mut month: u32, day: u32, hour: u32, minute: u3
 	}
 
 	let t = if year < 0 { 0.75 } else { 0.0 };
-
 	let d = day as f64 + (second + minute * 60 + hour * 3600) as f64 / DAY_S;
-
 	let jd = b + (365.25 * year as f64 - t).trunc() + (30.6001 * (month as f64 + 1.0)).trunc() + d + 1720994.5;
 	
 	return jd
